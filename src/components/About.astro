@@ -1,0 +1,79 @@
+---
+// Edit here: your bio. Keep it short — three short paragraphs is plenty.
+const paragraphs = [
+  "I'm an iOS engineer at Rednote (Xiaohongshu), working on the messaging stack and on AI agent chat — the kind of features millions of people use without ever thinking about the code underneath.",
+  "Before that I studied Computer Science at Beihang University. I co-authored a paper on LLMs and secure code (EASE 2025), and my undergraduate thesis built an adaptive batching mechanism for energy-efficient video summarization on edge devices.",
+  "I like the quiet craft of making fast, considered software. When I'm not shipping, I sing in two college a cappella groups — it keeps the rest of life in tune.",
+];
+
+const facts = [
+  { k: 'Now', v: 'iOS @ Rednote, Shanghai' },
+  { k: 'Studied', v: 'CS @ Beihang University' },
+  { k: 'Stack', v: 'Swift · Objective-C · TypeScript' },
+  { k: 'Off the clock', v: 'Choir, a cappella, long walks' },
+];
+---
+<section id="about" class="section about">
+  <div class="container">
+    <span class="eyebrow">01 — About</span>
+    <h2 class="section-title">About me</h2>
+    <div class="grid-2">
+      <div class="bio">
+        {paragraphs.map(p => <p>{p}</p>)}
+      </div>
+      <ul class="facts">
+        {facts.map(f => (
+          <li>
+            <span class="k">{f.k}</span>
+            <span class="v">{f.v}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { padding-top: 120px; }
+  .grid-2 {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .bio p {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.75;
+    margin-bottom: 16px;
+    max-width: 56ch;
+  }
+  .facts {
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+  .facts li {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .facts .k {
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+  }
+  .facts .v {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>
