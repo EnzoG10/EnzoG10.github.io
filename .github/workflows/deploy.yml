@@ -24,9 +24,7 @@ jobs:
       - name: Install, build & upload (Astro action)
         uses: withastro/action@v3
         with:
-          # Tell the action which package manager to use, since we don't
-          # commit a lockfile.
-          package-manager: npm@latest
+          package-manager: npm
         # This action installs dependencies, runs `astro build`, and uploads
         # the dist/ folder as a Pages artifact.
 
