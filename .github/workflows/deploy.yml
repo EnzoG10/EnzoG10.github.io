@@ -21,12 +21,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install, build & upload (Astro action)
-        uses: withastro/action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          package-manager: npm
-        # This action installs dependencies, runs `astro build`, and uploads
-        # the dist/ folder as a Pages artifact.
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        # Use `npm install` instead of `npm ci` to work around an npm bug
+        # where lockfiles generated on macOS arm64 don't include the
+        # linux-x64 rollup native binary required on Actions runners.
+        # See https://github.com/npm/cli/issues/4828
+        run: npm install --no-audit --no-fund
+
+      - name: Build site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build
