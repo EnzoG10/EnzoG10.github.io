@@ -11,11 +11,45 @@ const links = [
       <span class="brand-mark">E</span>
       <span class="brand-name">Enzo</span>
     </a>
-    <div class="nav-links">
-      {links.map(l => <a href={l.href}>{l.label}</a>)}
+    <div class="nav-right">
+      <div class="nav-links">
+        {links.map(l => <a href={l.href}>{l.label}</a>)}
+      </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+        <svg class="icon icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+        <svg class="icon icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </nav>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+    // If the user hasn't explicitly chosen a theme yet, follow system changes live.
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        try {
+          if (localStorage.getItem('theme')) return; // user has a preference, don't override
+        } catch (err) {}
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      });
+    }
+  })();
+</script>
 
 <style>
   .nav {
@@ -24,10 +58,11 @@ const links = [
     left: 0;
     right: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--nav-bg);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
   }
   .nav-inner {
     display: flex;
@@ -49,13 +84,20 @@ const links = [
     background: var(--accent);
     display: grid;
     place-items: center;
-    color: white;
+    color: var(--accent-on);
     font-size: 14px;
     font-weight: 700;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
   .brand-name {
     font-size: 15px;
     color: var(--ink);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
   .nav-links {
     display: flex;
@@ -70,8 +112,35 @@ const links = [
   .nav-links a:hover {
     color: var(--accent);
   }
+
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .theme-toggle .icon {
+    display: none;
+  }
+  :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+  :root[data-theme="dark"]  .theme-toggle .icon-sun  { display: block; }
+  /* fallback when no data-theme is set */
+  :root:not([data-theme]) .theme-toggle .icon-moon { display: block; }
+
   @media (max-width: 540px) {
-    .nav-links { gap: 20px; font-size: 13px; }
+    .nav-links { gap: 18px; font-size: 13px; }
+    .nav-right { gap: 14px; }
     .brand-name { display: none; }
   }
 </style>
