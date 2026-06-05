@@ -18,6 +18,11 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
+# avatar working files (kept locally for tweaking, not deployed)
+public/avatar.jpg
+public/avatar-preview.jpg
+public/avatar-square-v*.jpg
+
 # editor
 .vscode/
 .idea/
