@@ -15,65 +15,77 @@ const facts = [
 ---
 <section id="about" class="section about">
   <div class="container">
-    <span class="eyebrow">01 — About</span>
-    <h2 class="section-title">About me</h2>
+    <span class="eyebrow">01 · About</span>
+    <h2 class="section-title">A little about me<span class="accent-text">.</span></h2>
     <div class="grid-2">
       <div class="bio">
         {paragraphs.map(p => <p>{p}</p>)}
       </div>
-      <ul class="facts">
-        {facts.map(f => (
-          <li>
-            <span class="k">{f.k}</span>
-            <span class="v">{f.v}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="facts-card">
+        <ul class="facts">
+          {facts.map(f => (
+            <li>
+              <span class="k">{f.k}</span>
+              <span class="v">{f.v}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .about { padding-top: 120px; }
   .grid-2 {
-    margin-top: 32px;
+    margin-top: 24px;
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    gap: 56px;
+    gap: 64px;
     align-items: start;
   }
   .bio p {
     color: var(--ink-soft);
     font-size: 17px;
-    line-height: 1.75;
-    margin-bottom: 16px;
+    line-height: 1.8;
+    margin-bottom: 18px;
     max-width: 56ch;
+  }
+  .bio p:last-child { margin-bottom: 0; }
+
+  .facts-card {
+    background: var(--bg-soft);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
   }
   .facts {
     list-style: none;
-    border-top: 1px solid var(--border);
   }
   .facts li {
     display: flex;
-    justify-content: space-between;
-    padding: 16px 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 14px;
   }
+  .facts li:first-child { padding-top: 0; }
+  .facts li:last-child { border-bottom: none; padding-bottom: 0; }
   .facts .k {
     color: var(--ink-mute);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 500;
   }
   .facts .v {
     color: var(--ink);
     font-weight: 500;
+    font-size: 15px;
   }
   @media (max-width: 760px) {
     .grid-2 {
       grid-template-columns: 1fr;
       gap: 32px;
     }
+    .facts-card { padding: 24px; }
   }
 </style>

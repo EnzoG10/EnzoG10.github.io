@@ -8,23 +8,25 @@ const socials = [
 ---
 <section id="contact" class="section contact">
   <div class="container">
-    <span class="eyebrow">03 — Get in touch</span>
-    <h2 class="section-title">
-      <span>Got an idea?</span>
-      <span class="gradient-text">Let's talk.</span>
-    </h2>
-    <p class="section-sub">Collaborations, consulting, or a simple hello — all welcome. I read every email.</p>
+    <div class="contact-card">
+      <span class="eyebrow">03 · Get in touch</span>
+      <h2 class="title">
+        Got an idea? <br>
+        <span class="accent-text">Let's talk.</span>
+      </h2>
+      <p class="sub">Collaborations, consulting, or a simple hello — all welcome. I read every email.</p>
 
-    <a href={`mailto:${email}`} class="email-link">
-      <span class="email-text">{email}</span>
-      <span class="email-arrow">↗</span>
-    </a>
+      <a href={`mailto:${email}`} class="email-pill">
+        <span>{email}</span>
+        <span class="arrow">→</span>
+      </a>
 
-    <ul class="socials">
-      {socials.map(s => (
-        <li><a href={s.href} target="_blank" rel="noreferrer">{s.label} <span>↗</span></a></li>
-      ))}
-    </ul>
+      <ul class="socials">
+        {socials.map(s => (
+          <li><a href={s.href} target="_blank" rel="noreferrer">{s.label} <span>↗</span></a></li>
+        ))}
+      </ul>
+    </div>
 
     <footer class="foot">
       © {new Date().getFullYear()} Zhaohui Gong · Built with Astro · Hosted on GitHub Pages
@@ -33,71 +35,93 @@ const socials = [
 </section>
 
 <style>
-  .contact {
-    padding-bottom: 64px;
+  .contact { padding-bottom: 48px; }
+
+  .contact-card {
+    background: var(--bg-soft);
+    border-radius: var(--radius-xl);
+    padding: 64px;
+    margin-top: 24px;
   }
-  .section-title {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .email-link {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 12px;
-    margin: 16px 0 48px;
-    font-size: clamp(28px, 5vw, 56px);
-    font-weight: 500;
+
+  .title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.02em;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    margin: 16px 0 16px;
+    color: var(--ink);
   }
-  .email-link:hover {
-    border-color: var(--ink);
-  }
-  .email-arrow {
-    font-size: 0.6em;
+  .sub {
     color: var(--ink-soft);
+    font-size: 16px;
+    margin-bottom: 40px;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .email-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: var(--ink);
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    transition: all 0.2s ease;
+  }
+  .email-pill:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+  .email-pill .arrow {
     transition: transform 0.2s ease;
   }
-  .email-link:hover .email-arrow {
-    transform: translate(4px, -4px);
-    color: var(--ink);
+  .email-pill:hover .arrow {
+    transform: translateX(4px);
   }
 
   .socials {
     list-style: none;
     display: flex;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 80px;
   }
   .socials a {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 10px 18px;
-    border: 1px solid var(--border-strong);
+    background: #ffffff;
     border-radius: 999px;
-    font-size: 13px;
-    color: var(--ink-soft);
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
     transition: all 0.2s ease;
   }
   .socials a:hover {
-    color: var(--ink);
-    background: var(--bg-card);
+    color: var(--accent);
     transform: translateY(-2px);
   }
   .socials span {
-    opacity: 0.6;
-    font-size: 11px;
+    color: var(--ink-mute);
+    font-size: 12px;
+  }
+  .socials a:hover span {
+    color: var(--accent);
   }
 
   .foot {
     color: var(--ink-mute);
     font-size: 12px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
+    padding: 32px 0 16px;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .contact-card { padding: 40px 28px; }
   }
 </style>

@@ -1,165 +1,237 @@
 ---
-// Edit here: your projects. Each entry can use `link` to point to a case study or live URL.
+// Edit here: your projects.
+// `cover` is the colored cover area at the top of each card (gradient/solid).
+// `aspect` controls the cover's height: '3/4' is a tall xhs-style cover, '4/3' shorter.
+// `link` can point to a case study or external URL.
 const projects = [
   {
     title: 'Messaging at Rednote',
     summary: 'Owning iOS messaging for an industrial-scale social app — message rendering, local storage, and the small details that make a chat feel alive.',
-    tags: ['iOS', '2025 — Now'],
+    tags: ['iOS', 'Production'],
+    likes: 128,
+    cover: 'linear-gradient(135deg, #FFE5EA 0%, #FFC2CC 100%)',
+    aspect: '3/4',
     link: '#',
   },
   {
     title: 'AI Agent Chat',
     summary: 'Built end-to-end iOS support for AI conversations, including stream-based message push. Exploring where social and AI naturally meet.',
     tags: ['iOS', 'AI'],
+    likes: 96,
+    cover: 'linear-gradient(135deg, #FFF4E0 0%, #FFD9A8 100%)',
+    aspect: '4/3',
     link: '#',
   },
   {
     title: 'Secure Code with LLMs',
     summary: 'Co-authored research (EASE 2025) on whether language models can write secure Python — and showed that a multi-model "generate, then repair" loop substantially raises the bar.',
     tags: ['Research', 'EASE 2025'],
+    likes: 87,
+    cover: 'linear-gradient(135deg, #E8EFFF 0%, #C5D4F5 100%)',
+    aspect: '4/3',
     link: '#',
   },
   {
     title: 'Adaptive Batching for Edge MVS',
     summary: 'Undergraduate thesis. A dynamic-programming scheduler for distributed multi-view video summarization on Jetson AGX Xavier — 18% less energy, 49% lower latency.',
     tags: ['Edge Computing', 'Thesis'],
+    likes: 54,
+    cover: 'linear-gradient(135deg, #E6F5EC 0%, #B8DCC4 100%)',
+    aspect: '3/4',
     link: '#',
   },
 ];
+
+// Split into two columns, alternating to roughly balance height.
+const left = projects.filter((_, i) => i % 2 === 0);
+const right = projects.filter((_, i) => i % 2 === 1);
 ---
 <section id="work" class="section work">
   <div class="container">
-    <span class="eyebrow">02 — Selected Work</span>
-    <h2 class="section-title">Things I've made</h2>
-    <p class="section-sub">A few projects from the past couple of years — production work, research, things in between.</p>
+    <span class="eyebrow">02 · Selected Work</span>
+    <h2 class="section-title">Things I've made<span class="accent-text">.</span></h2>
+    <p class="section-sub">A few projects from the past couple of years — production work, research, and things in between.</p>
 
-    <div class="grid">
-      {projects.map((p, i) => (
-        <a href={p.link} class={`card accent-${i % 4}`}>
-          <div class="card-bg" aria-hidden="true"></div>
-          <div class="card-body">
-            <div class="card-tags">
-              {p.tags.map(t => <span>{t}</span>)}
+    <div class="masonry">
+      <div class="col">
+        {left.map(p => (
+          <a href={p.link} class="card">
+            <div class="cover" style={`background: ${p.cover}; aspect-ratio: ${p.aspect};`}>
+              <div class="cover-tags">
+                {p.tags.map(t => <span>{t}</span>)}
+              </div>
             </div>
-            <h3 class="card-title">{p.title}</h3>
-            <p class="card-summary">{p.summary}</p>
-            <span class="card-arrow">→</span>
-          </div>
-        </a>
-      ))}
+            <div class="card-body">
+              <h3 class="card-title">{p.title}</h3>
+              <p class="card-summary">{p.summary}</p>
+              <div class="card-meta">
+                <div class="author">
+                  <img src="/avatar-square.jpg" alt="" />
+                  <span>Enzo Gong</span>
+                </div>
+                <span class="like">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                  {p.likes}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="col">
+        {right.map(p => (
+          <a href={p.link} class="card">
+            <div class="cover" style={`background: ${p.cover}; aspect-ratio: ${p.aspect};`}>
+              <div class="cover-tags">
+                {p.tags.map(t => <span>{t}</span>)}
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{p.title}</h3>
+              <p class="card-summary">{p.summary}</p>
+              <div class="card-meta">
+                <div class="author">
+                  <img src="/avatar-square.jpg" alt="" />
+                  <span>Enzo Gong</span>
+                </div>
+                <span class="like">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                  {p.likes}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .grid {
+  .masonry {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .card {
-    position: relative;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
     background: var(--bg-card);
-    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 4 / 3;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    isolation: isolate;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid var(--border);
   }
   .card:hover {
     transform: translateY(-4px);
-    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
   }
-  .card-bg {
+
+  .cover {
+    position: relative;
+    width: 100%;
+  }
+  .cover-tags {
     position: absolute;
-    inset: 0;
-    opacity: 0.35;
-    transition: opacity 0.4s ease, transform 0.6s ease;
-    z-index: -1;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
   }
-  .card:hover .card-bg {
-    opacity: 0.55;
-    transform: scale(1.05);
+  .cover-tags span {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--ink);
+    border-radius: 999px;
   }
-  .accent-0 .card-bg {
-    background: radial-gradient(circle at 20% 20%, #7c5cff, transparent 55%),
-                radial-gradient(circle at 90% 80%, #22d3ee, transparent 60%);
-  }
-  .accent-1 .card-bg {
-    background: radial-gradient(circle at 80% 20%, #f471b5, transparent 55%),
-                radial-gradient(circle at 20% 90%, #fb923c, transparent 60%);
-  }
-  .accent-2 .card-bg {
-    background: radial-gradient(circle at 30% 80%, #34d399, transparent 55%),
-                radial-gradient(circle at 80% 20%, #22d3ee, transparent 60%);
-  }
-  .accent-3 .card-bg {
-    background: radial-gradient(circle at 70% 30%, #22d3ee, transparent 55%),
-                radial-gradient(circle at 30% 90%, #7c5cff, transparent 60%);
-  }
+
   .card-body {
-    position: absolute;
-    inset: 0;
-    padding: 28px;
+    padding: 16px 18px 18px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-  }
-  .card-tags {
-    position: absolute;
-    top: 24px;
-    left: 28px;
-    display: flex;
     gap: 8px;
   }
-  .card-tags span {
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    background: rgba(11, 11, 18, 0.55);
-    color: var(--ink-soft);
-    backdrop-filter: blur(6px);
-  }
   .card-title {
-    font-size: 26px;
-    letter-spacing: -0.02em;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 8px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--ink);
   }
   .card-summary {
     color: var(--ink-soft);
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.55;
-    max-width: 36ch;
   }
-  .card-arrow {
-    position: absolute;
-    top: 24px;
-    right: 28px;
-    width: 36px;
-    height: 36px;
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--ink-mute);
+  }
+  .author {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    overflow: hidden;
+  }
+  .author img {
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background: rgba(11, 11, 18, 0.6);
-    border: 1px solid var(--border-strong);
-    display: grid;
-    place-items: center;
-    font-size: 14px;
-    transition: transform 0.2s ease, background 0.2s ease;
+    object-fit: cover;
+    object-position: center 30%;
+    flex-shrink: 0;
   }
-  .card:hover .card-arrow {
-    transform: rotate(-45deg);
-    background: var(--ink);
-    color: var(--bg);
+  .author span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  @media (max-width: 720px) {
-    .grid {
+  .like {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+  }
+  .card:hover .like {
+    color: var(--accent);
+  }
+  .like svg {
+    transition: fill 0.2s ease;
+    fill: none;
+  }
+  .card:hover .like svg {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    .masonry {
       grid-template-columns: 1fr;
     }
-    .card { aspect-ratio: 3 / 2; }
   }
 </style>
